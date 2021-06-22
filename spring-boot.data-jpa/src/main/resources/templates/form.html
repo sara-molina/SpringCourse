@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+<header th:replace="layout/layout :: header"></header>
+	<div class="container">
+		<h1
+			class="text-primary border border-success border-top-0 border-left-0 border-right-0"
+			th:text="${titulo}"></h1>
+
+		<div th:object="${cliente}" th:remove="tag">
+			<ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+				<li th:if="${#fields.errors('*')}" th:each="err: ${#fields.errors('*')}" th:text="${err}"></li>
+			</ul>
+		</div>
+		<form th:action="@{/form}" th:object="${cliente}" method="post">
+
+			<table class="table table-bordered">
+
+
+				<tr>
+					<td style="width: 200px">Nombre</td>
+					<td><input type="text" th:field="*{nombre}"
+						class="form-control" th:errorclass="'form-control alert-danger'"></td>
+					<td><small class="form-text text-danger"
+						th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small></td>
+				</tr>
+
+				<tr>
+					<td style="width: 200px">Apellido</td>
+					<td><input type="text" th:field="*{apellido}"
+						class="form-control" th:errorclass="'form-control alert-danger'"></td>
+					<td><small class="form-text text-danger"
+						th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></small></td>
+				</tr>
+
+				<tr>
+					<td style="width: 200px">E-mail</td>
+					<td><input type="text" th:field="*{email}"
+						class="form-control" th:errorclass="'form-control alert-danger'"></td>
+					<td><small class="form-text text-danger"
+						th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small></td>
+				</tr>
+
+				<tr>
+					<td style="width: 200px">fecha</td>
+					<td><input type="text" th:field="*{createAt}"
+						class="form-control" th:errorclass="'form-control alert-danger'"></td>
+					<td><small class="form-text text-danger"
+						th:if="${#fields.hasErrors('createAt')}" th:errors="*{createAt}"></small></td>
+				</tr>
+
+				<tr>
+					<td><input type="submit" value="crear cliente"
+						class="btn btn-primary"></td>
+				</tr>
+
+			</table>
+
+			<input type="hidden" th:field="*{id}" />
+		</form>
+	</div>
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
